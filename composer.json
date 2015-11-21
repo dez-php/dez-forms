@@ -1,0 +1,24 @@
+{
+  "name": "dez-php/dez-forms",
+  "description": "Form Manager Component",
+  "keywords": ["php forms","html forms","dez-forms maker"],
+  "authors": [
+    {
+      "name": "Ivan Gontarenko",
+      "email": "vania.gontarenko@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "type": "library",
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "require": {
+    "php": ">=5.5",
+    "dez-php/dez-html":">=1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dez\\Form\\": "src/Form"
+    }
+  }
+}
