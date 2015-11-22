@@ -9,8 +9,7 @@
 
         public function createElement()
         {
-            $submit     = new InputSubmitElement($this->getValue());
-            return $submit;
+            return new InputSubmitElement($this->getValue());
         }
 
     }

@@ -3,9 +3,10 @@
     namespace Dez\Form;
 
     use Dez\Form\Element\InputEmail;
+    use Dez\Form\Element\InputPassword;
     use Dez\Form\Element\InputText;
+    use Dez\Form\Element\Select;
     use Dez\Form\Element\Submit;
-    use Dez\Html\Element\FormElement;
 
     abstract class Form {
 
@@ -17,53 +18,101 @@
 
         protected $elements = [];
 
-        public function __construct($action, $method = 'get', $multipart = false)
+        /**
+         * Form constructor.
+         * @param $action
+         * @param string $method
+         * @param bool|false $multipart
+         */
+        public function __construct($action = null, $method = 'get', $multipart = false)
         {
             $this->setAction($action)->setMethod($method)->setMultipartData($multipart);
         }
 
+        /**
+         * @param $name
+         * @param $label
+         * @return Form
+         */
         public function addPassword($name, $label)
         {
-
-        }
-
-        public function addText($name, $label)
-        {
-            $this->add(new InputText($name, null, $label));
-        }
-
-        public function addEmail($name, $label)
-        {
-            $this->add(new InputEmail($name, null, $label));
-        }
-
-        public function addSubmit($value)
-        {
-            $this->add(new Submit(null, $value));
-        }
-
-        public function add(Element $element)
-        {
-            $this->elements[]   = $this->decorateElement($element);
-            return $this;
+            return $this->add(new InputPassword($name, null, $label));
         }
 
         /**
-         * @return $this
+         * @param $name
+         * @param $label
+         * @return Form
          */
-        public function render()
+        public function addText($name, $label)
         {
-            $form   = new FormElement($this->getAction(), $this->getMethod(), $this->isMultipartData());
-            $form->setContent($this->getElements());
+            return $this->add(new InputText($name, null, $label));
+        }
 
-            return $form;
+        /**
+         * @param $name
+         * @param $label
+         * @return Form
+         */
+        public function addEmail($name, $label)
+        {
+            return $this->add(new InputEmail($name, null, $label));
+        }
+
+        /**
+         * @param $value
+         * @return Form
+         */
+        public function addSubmit($value)
+        {
+            return $this->add(new Submit(null, $value));
+        }
+
+        /**
+         * @param $name
+         * @param array $data
+         * @param $label
+         * @return Form
+         */
+        public function addSelect($name, array $data = [], $label)
+        {
+            return $this->add(new Select($name, $data, $label));
         }
 
         /**
          * @param Element $element
-         * @return mixed
+         * @return $this
          */
-        abstract protected function decorateElement(Element $element);
+        public function add(Element $element)
+        {
+            $this->elements[$element->getName()]   = $this->prepareElement($element);
+            return $this;
+        }
+
+        /**
+         * @param array $defaultValues
+         * @return $this
+         */
+        public function setDefaultArray(array $defaultValues = [])
+        {
+            foreach($defaultValues as $name => $value) {
+                $this->setDefault($name, $value);
+            }
+            return $this;
+        }
+
+        /**
+         * @param $name
+         * @param null $defaultValue
+         * @return $this
+         */
+        public function setDefault($name, $defaultValue = null)
+        {
+            if($this->hasElement($name)) {
+                $this->getElement($name)->setDefault($defaultValue);
+            }
+            return $this;
+        }
 
         /**
          * @return mixed
@@ -120,6 +169,24 @@
         }
 
         /**
+         * @param $name
+         * @return bool
+         */
+        public function hasElement($name)
+        {
+            return isset($this->elements[$name]);
+        }
+
+        /**
+         * @param $name
+         * @return Element
+         */
+        public function getElement($name)
+        {
+            return $this->hasElement($name) ? $this->elements[$name] : null;
+        }
+
+        /**
          * @return Element[]
          */
         public function getElements()
@@ -136,5 +203,16 @@
             $this->elements = $elements;
             return $this;
         }
+
+        /**
+         * @return $this
+         */
+        abstract public function render();
+
+        /**
+         * @param Element $element
+         * @return mixed
+         */
+        abstract public function prepareElement(Element $element);
 
     }
