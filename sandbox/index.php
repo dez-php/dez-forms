@@ -16,9 +16,10 @@ $form    = new Form('?r=/app/update_user.php', 'post', true);
 $form->setDecorator(new Bootstrap2());
 
 $form->addEmail('email', 'Enter your email');
+$form->addEmail('email_repeat', 'Repeat your email');
 $form->addSubmit('Submit me!');
 
-echo $form;
+$subscriptionForm   = clone $form;
 
 $form->addSelect('sex', [
     'Famale'    => 'f',
@@ -37,7 +38,9 @@ $form->add(
     new RangeSelect('y', 'year', 1890, date('Y'), 5)
 );
 
-$form->addSubmit('submit me!!1');
+$form->addSubmit('submit me 1');
+
+$form->addSubmit('submit me 2');
 
 ?>
 <!doctype html>
@@ -56,8 +59,11 @@ $form->addSubmit('submit me!!1');
 
     <div class="row marketing">
         <div class="col-lg-10">
-            <h4>Form generator</h4>
-            <?= $form->render(); ?>
+            <h3>Form 1</h3>
+            <?= $subscriptionForm; ?>
+
+            <h3>Form 2</h3>
+            <?= $form; ?>
         </div>
     </div>
 

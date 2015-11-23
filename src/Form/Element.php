@@ -31,6 +31,14 @@
         }
 
         /**
+         * Cloning
+         */
+        public function __clone()
+        {
+            $this->setCreated(false);
+        }
+
+        /**
          * @return null
          */
         public function getName()

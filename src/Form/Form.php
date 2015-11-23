@@ -49,6 +49,15 @@
         }
 
         /**
+         * Cloning
+         */
+        public function __clone()
+        {
+            $this->setDecorator(clone $this->getDecorator());
+            $this->getDecorator()->setForm($this);
+        }
+
+        /**
          * @return string
          */
         public function __toString()
