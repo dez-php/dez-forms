@@ -9,7 +9,7 @@
     use Dez\Html\Element\LabelElement;
     use Dez\Html\HtmlElement;
 
-    class Bootstrap2 extends Decorator {
+    class DefaultForm extends Decorator {
 
         /**
          * @param Element $element
@@ -17,11 +17,11 @@
          */
         public function element(Element $element)
         {
-            return (new DivElement([ new LabelElement($element->getLabel()), $element->createElement() ]))->addClass('bootstrap-row');
+            return (new DivElement([ new LabelElement($element->getLabel()), $element->createElement() ]))->addClass('dez-form-row');
         }
 
         /**
-         * @return string
+         * @return FormElement
          * @throws \Exception
          */
         public function render()
@@ -33,7 +33,8 @@
             $form   = new FormElement($action, $method, $isMultipart);
             $form->setContent($this->getForm()->getElements());
 
-            return $form->render();
+            return $form;
         }
+
 
     }

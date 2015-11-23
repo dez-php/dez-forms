@@ -2,20 +2,39 @@
 
     namespace Dez\Form;
 
+    use Dez\Form\Decorator\DefaultForm;
     use Dez\Form\Element\InputEmail;
     use Dez\Form\Element\InputPassword;
     use Dez\Form\Element\InputText;
     use Dez\Form\Element\Select;
     use Dez\Form\Element\Submit;
+    use Dez\Html\HtmlElement;
 
-    abstract class Form {
+    class Form {
 
+        /**
+         * @var Decorator
+         */
+        protected $decorator;
+
+        /**
+         * @var string
+         */
         protected $action;
 
+        /**
+         * @var string
+         */
         protected $method   = 'get';
 
+        /**
+         * @var bool
+         */
         protected $multipartData = false;
 
+        /**
+         * @var Element[]
+         */
         protected $elements = [];
 
         /**
@@ -26,7 +45,15 @@
          */
         public function __construct($action = null, $method = 'get', $multipart = false)
         {
-            $this->setAction($action)->setMethod($method)->setMultipartData($multipart);
+            $this->setAction($action)->setMethod($method)->setMultipartData($multipart)->setDecorator(new DefaultForm($this));
+        }
+
+        /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return $this->render();
         }
 
         /**
@@ -85,7 +112,7 @@
          */
         public function add(Element $element)
         {
-            $this->elements[$element->getName()]   = $this->prepareElement($element);
+            $this->elements[$element->getName()]   = $this->getDecorator()->element($element);
             return $this;
         }
 
@@ -205,14 +232,32 @@
         }
 
         /**
-         * @return $this
+         * @return Decorator
          */
-        abstract public function render();
+        public function getDecorator()
+        {
+            return $this->decorator;
+        }
 
         /**
-         * @param Element $element
-         * @return mixed
+         * @param Decorator $decorator
+         * @return static
          */
-        abstract public function prepareElement(Element $element);
+        public function setDecorator(Decorator $decorator)
+        {
+            if(! $decorator->hasForm()) {
+                $decorator->setForm($this);
+            }
+
+            $this->decorator = $decorator;
+            return $this;
+        }
+
+        /**
+         * @return string
+         */
+        public function render() {
+            return $this->getDecorator()->render();
+        }
 
     }

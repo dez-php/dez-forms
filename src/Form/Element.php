@@ -27,11 +27,6 @@
         }
 
         /**
-         * @return HtmlElement
-         */
-        abstract public function createElement();
-
-        /**
          * @return null
          */
         public function getName()
@@ -102,5 +97,10 @@
             $this->default = $default;
             return $this;
         }
+
+        /**
+         * @return HtmlElement
+         */
+        abstract public function createElement();
 
     }

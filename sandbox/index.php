@@ -1,40 +1,44 @@
 <?php
 
-    namespace Sandbox;
+namespace Sandbox;
 
-    use Dez\Form\Decorator\Bootstrap2;
-    use Dez\Form\Decorator\Simple;
-    use Dez\Form\Element\MonthSelect;
-    use Dez\Form\Element\RangeSelect;
+use Dez\Form\Decorator\Bootstrap2;
+use Dez\Form\Element\MonthSelect;
+use Dez\Form\Element\RangeSelect;
+use Dez\Form\Form;
 
-    include_once '../vendor/autoload.php';
+include_once '../vendor/autoload.php';
 
-    error_reporting(1); ini_set('display_errors', 1);
+error_reporting(1); ini_set('display_errors', 1);
 
-    $form    = new Simple(
-        '?r=/app/update_user.php', 'post', true
-    );
+$form    = new Form('?r=/app/update_user.php', 'post', true);
 
-    $form->addEmail('email', 'enter your email');
+$form->setDecorator(new Bootstrap2());
 
-    $form->addSelect('sex', [
-        'Famale'    => 'f',
-        'Male'      => 'm'
-    ], 'you are?');
+$form->addEmail('email', 'Enter your email');
 
-    $form->addText('comment', 'comment [optional]');
+$form->addSubmit('Submit me!');
 
-    $form->addPassword('pwd', 'enter password!');
+echo $form;
 
-    $form->add(
-        new MonthSelect('month', 'select birth day month')
-    );
+$form->addSelect('sex', [
+    'Famale'    => 'f',
+    'Male'      => 'm'
+], 'you are?');
 
-    $form->add(
-        new RangeSelect('y', 'year', 1890, date('Y'), 5)
-    );
+$form->addText('comment', 'comment [optional]');
 
-    $form->addSubmit('submit me!!1');
+$form->addPassword('pwd', 'enter password!');
+
+$form->add(
+    new MonthSelect('month', 'select birth day month')
+);
+
+$form->add(
+    new RangeSelect('y', 'year', 1890, date('Y'), 5)
+);
+
+$form->addSubmit('submit me!!1');
 
 ?>
 <!doctype html>
