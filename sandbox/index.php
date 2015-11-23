@@ -16,7 +16,6 @@ $form    = new Form('?r=/app/update_user.php', 'post', true);
 $form->setDecorator(new Bootstrap2());
 
 $form->addEmail('email', 'Enter your email');
-
 $form->addSubmit('Submit me!');
 
 echo $form;

@@ -17,7 +17,7 @@
          */
         public function element(Element $element)
         {
-            return (new DivElement([ new LabelElement($element->getLabel()), $element->createElement() ]))->addClass('dez-form-row');
+            return (new DivElement([ new LabelElement($element->getLabel()), $element->getElement() ]))->addClass('dez-form-row');
         }
 
         /**

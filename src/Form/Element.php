@@ -14,6 +14,10 @@
 
         protected $default  = null;
 
+        protected $element  = null;
+
+        protected $created  = false;
+
         /**
          * Element constructor.
          * @param $name
@@ -99,8 +103,39 @@
         }
 
         /**
+         * @return boolean
+         */
+        public function isCreated()
+        {
+            return $this->created;
+        }
+
+        /**
          * @return HtmlElement
          */
-        abstract public function createElement();
+        public function getElement()
+        {
+            if(! $this->isCreated()) {
+                $this->element  = $this->createElement();
+                $this->setCreated(true);
+            }
+
+            return $this->element;
+        }
+
+        /**
+         * @param boolean $created
+         * @return static
+         */
+        public function setCreated($created)
+        {
+            $this->created = $created;
+            return $this;
+        }
+
+        /**
+         * @return HtmlElement
+         */
+        abstract protected function createElement();
 
     }
