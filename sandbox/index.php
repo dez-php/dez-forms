@@ -30,7 +30,7 @@ $form->addText('comment', 'comment [optional]');
 $form->addPassword('pwd', 'enter password!');
 
 $form->add(
-    new MonthSelect('month', 'select birth day month')
+    new MonthSelect('month', 'select birth day month', 7)
 );
 
 $form->add(
