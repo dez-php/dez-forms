@@ -33,7 +33,7 @@
             $form   = new FormElement($action, $method, $isMultipart);
             $form->setContent($this->getForm()->getElements());
 
-            return $form;
+            return $form->render();
         }
 
 

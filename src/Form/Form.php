@@ -8,7 +8,6 @@
     use Dez\Form\Element\InputText;
     use Dez\Form\Element\Select;
     use Dez\Form\Element\Submit;
-    use Dez\Html\HtmlElement;
 
     class Form {
 

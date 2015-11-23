@@ -9,7 +9,7 @@ use Dez\Form\Form;
 
 include_once '../vendor/autoload.php';
 
-error_reporting(1); ini_set('display_errors', 1);
+error_reporting(E_ALL); ini_set('display_errors', 'On');
 
 $form    = new Form('?r=/app/update_user.php', 'post', true);
 
@@ -42,6 +42,10 @@ $form->addSubmit('submit me 1');
 
 $form->addSubmit('submit me 2');
 
+include_once 'LoginForm.php';
+
+$loginForm   = new \LoginForm('auth/sign-in');
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,6 +63,15 @@ $form->addSubmit('submit me 2');
 
     <div class="row marketing">
         <div class="col-lg-10">
+
+            <h1>
+                Login
+            </h1>
+
+            <div>
+                <?= $loginForm; ?>
+            </div>
+
             <h3>Form 1</h3>
             <?= $subscriptionForm; ?>
 
