@@ -1,16 +1,24 @@
 <?php
 
-    namespace Dez\Form\Element;
+namespace Dez\Form\Element;
 
-    use Dez\Form\Element;
-    use Dez\Html\Element\InputEmailElement;
+use Dez\Form\Element;
+use Dez\Html\Element\InputEmailElement;
 
-    class InputEmail extends Element {
+/**
+ * Class InputEmail
+ * @package Dez\Form\Element
+ */
+class InputEmail extends Element
+{
 
-        public function createElement()
-        {
-            $input     = new InputEmailElement($this->getName());
-            return $input;
-        }
+  /**
+   * @return InputEmailElement
+   */
+  public function createElement()
+  {
+    $input = new InputEmailElement($this->getName());
+    return $input;
+  }
 
-    }
+}

@@ -1,15 +1,23 @@
 <?php
 
-    namespace Dez\Form\Element;
+namespace Dez\Form\Element;
 
-    use Dez\Form\Element;
-    use Dez\Html\Element\InputSubmitElement;
+use Dez\Form\Element;
+use Dez\Html\Element\InputSubmitElement;
 
-    class Submit extends Element {
+/**
+ * Class Submit
+ * @package Dez\Form\Element
+ */
+class Submit extends Element
+{
 
-        public function createElement()
-        {
-            return new InputSubmitElement($this->getValue());
-        }
+  /**
+   * @return InputSubmitElement
+   */
+  public function createElement()
+  {
+    return new InputSubmitElement($this->getValue());
+  }
 
-    }
+}

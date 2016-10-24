@@ -1,16 +1,24 @@
 <?php
 
-    namespace Dez\Form\Element;
+namespace Dez\Form\Element;
 
-    use Dez\Form\Element;
-    use Dez\Html\Element\InputTextElement;
+use Dez\Form\Element;
+use Dez\Html\Element\InputTextElement;
 
-    class InputText extends Element {
+/**
+ * Class InputText
+ * @package Dez\Form\Element
+ */
+class InputText extends Element
+{
 
-        public function createElement()
-        {
-            $input     = new InputTextElement($this->getName());
-            return $input;
-        }
+  /**
+   * @return InputTextElement
+   */
+  public function createElement()
+  {
+    $input = new InputTextElement($this->getName());
+    return $input;
+  }
 
-    }
+}

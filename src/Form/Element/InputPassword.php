@@ -1,15 +1,23 @@
 <?php
 
-    namespace Dez\Form\Element;
+namespace Dez\Form\Element;
 
-    use Dez\Form\Element;
-    use Dez\Html\Element\InputPasswordElement;
+use Dez\Form\Element;
+use Dez\Html\Element\InputPasswordElement;
 
-    class InputPassword extends Element {
+/**
+ * Class InputPassword
+ * @package Dez\Form\Element
+ */
+class InputPassword extends Element
+{
 
-        public function createElement()
-        {
-            return new InputPasswordElement($this->getName());
-        }
+  /**
+   * @return InputPasswordElement
+   */
+  public function createElement()
+  {
+    return new InputPasswordElement($this->getName());
+  }
 
-    }
+}

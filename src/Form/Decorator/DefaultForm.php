@@ -1,40 +1,41 @@
 <?php
 
-    namespace Dez\Form\Decorator;
+namespace Dez\Form\Decorator;
 
-    use Dez\Form\Decorator;
-    use Dez\Form\Element;
-    use Dez\Html\Element\DivElement;
-    use Dez\Html\Element\FormElement;
-    use Dez\Html\Element\LabelElement;
-    use Dez\Html\HtmlElement;
+use Dez\Form\Decorator;
+use Dez\Form\Element;
+use Dez\Html\Element\DivElement;
+use Dez\Html\Element\FormElement;
+use Dez\Html\Element\LabelElement;
+use Dez\Html\HtmlElement;
 
-    class DefaultForm extends Decorator {
+class DefaultForm extends Decorator
+{
 
-        /**
-         * @param Element $element
-         * @return HtmlElement
-         */
-        public function element(Element $element)
-        {
-            return (new DivElement([ new LabelElement($element->getLabel()), $element->getElement() ]))->addClass('dez-form-row');
-        }
+  /**
+   * @param Element $element
+   * @return HtmlElement
+   */
+  public function element(Element $element)
+  {
+    return (new DivElement([new LabelElement($element->getLabel()), $element->getElement()]))->addClass('dez-form-row');
+  }
 
-        /**
-         * @return FormElement
-         * @throws \Exception
-         */
-        public function render()
-        {
-            $action         = $this->getForm()->getAction();
-            $method         = $this->getForm()->getMethod();
-            $isMultipart    = $this->getForm()->isMultipartData();
+  /**
+   * @return FormElement
+   * @throws \Exception
+   */
+  public function render()
+  {
+    $action = $this->getForm()->getAction();
+    $method = $this->getForm()->getMethod();
+    $isMultipart = $this->getForm()->isMultipartData();
 
-            $form   = new FormElement($action, $method, $isMultipart);
-            $form->setContent($this->getForm()->getElements());
+    $form = new FormElement($action, $method, $isMultipart);
+    $form->setContent($this->getForm()->getElements());
 
-            return $form->render();
-        }
+    return $form->render();
+  }
 
 
-    }
+}
